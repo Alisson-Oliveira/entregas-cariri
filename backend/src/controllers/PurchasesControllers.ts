@@ -2,29 +2,53 @@ import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import * as Yup from 'yup';
 
+import PurchaseView from '../views/PurchaseView';
+
 import Purchase from '../models/Purchase';
 import User from '../models/User';
 
 export default {
+  async show(request: Request, response: Response) {
+    try {
+      const { id } = request.params;
+
+      const currenty = await getRepository(Purchase)
+        .createQueryBuilder('purchases')
+        .where('purchases.userId = :id', { id })
+        .andWhere('purchases.state = :state', { state: 'Em andamento' })
+        .getCount();
+
+      const completed = await getRepository(Purchase)
+        .createQueryBuilder('purchases')
+        .where('purchases.userId = :id', { id })
+        .andWhere('purchases.state = :state', { state: 'Concluído' })
+        .getCount();
+        
+      return response.status(201).json({currenty, completed});      
+    } catch (error) {
+      console.error('Error currenty and completed purchese - ' + error);
+
+      return response.status(401).json('Error currenty and completed purchese');       
+    }
+  }, 
+
   async index(request: Request, response: Response) {
-    const { id } = request.params;
+    try {
+      const { id } = request.params;
 
-    // const purchases = await getRepository(Purchase)
-    //                           .createQueryBuilder('purchases')
-    //                           .select(['purchaseNumber', 'state', 'purchaseList', 'userId'])
-    //                           .from(Purchase, 'purchase')
-    //                           .where('purchase.userId = :id', {id})
-    //                           .getOne();
+      const purchases = await getRepository(Purchase)
+                                .createQueryBuilder('purchases')
+                                .where('purchases.userId = :id', {id})
+                                .getMany();
+  
+      return response.status(201).json(PurchaseView.renderMany(purchases));      
+    } catch (error) {
+      console.error('Error seaching purchese - ' + error);
 
-    const allPurchases = await getRepository(User)
-                                  .createQueryBuilder('users')
-                                  .leftJoinAndSelect('users.purchases', 'purchase')
-                                  .where('purchase.userId = :id', {id})
-                                  .getOne();
-
-    return response.json(allPurchases);
+      return response.status(401).json('Error seaching purchese');       
+    }
   },
-
+ 
   async create(request: Request, response: Response) { 
     try {
       const { 
@@ -67,7 +91,7 @@ export default {
   
       await purchaseRepository.save(purchase);
     
-      return response.status(201).send();      
+      return response.status(201).json({ message: 'Purchase completed' });      
     } catch (error) {
       console.error('Error creating purchese - ' + error);
 
