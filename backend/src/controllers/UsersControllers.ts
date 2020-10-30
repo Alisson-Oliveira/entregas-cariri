@@ -6,6 +6,8 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import authConfig from '../config/auth';
 
+import userView from '../views/UserViews';
+
 function generationTokin(params = {}) {
   return jwt.sign(params, authConfig.auth, {
     expiresIn: 86400,
@@ -13,24 +15,24 @@ function generationTokin(params = {}) {
 }
 
 export default {
- async show(request: Request, response: Response)  {
-    const { email, password } = request.body;
+//  async show(request: Request, response: Response)  {
+//     const { email, password } = request.body;
 
-    const usersRepository = getRepository(User);
+//     const usersRepository = getRepository(User);
 
-    const user = await usersRepository.findOne({ email });
+//     const user = await usersRepository.findOne({ email });
 
-    if (!user) 
-      return response.status(400).send({ error: 'User not found.' });
+//     if (!user) 
+//       return response.status(400).send({ error: 'User not found.' });
 
-    if (!await bcrypt.compare(password, user.password))
-      return response.status(400).send({ error: 'Invalid password.' });
+//     if (!await bcrypt.compare(password, user.password))
+//       return response.status(400).send({ error: 'Invalid password.' });
 
-    return response.json({ 
-      user, 
-      token: generationTokin({ id: user.id })
-    });  
-  },
+//     return response.json({ 
+//       user, 
+//       token: generationTokin({ id: user.id })
+//     });  
+//   },
 
   async index(request: Request, response: Response) {
     const { id } = request.params;
@@ -39,7 +41,7 @@ export default {
 
     const user = await usersRepository.findOneOrFail(id);
 
-    return response.json(user);
+    return response.json(userView.render(user));
   },
 
   async create(request: Request, response: Response) {
@@ -76,8 +78,8 @@ export default {
   
       await usersRepository.save(user);
     
-      return response.status(201).json({
-        user, 
+      return response.status(201).json({ 
+        user: userView.render(user), 
         token: generationTokin({ id: user.id })
       });      
     } catch (error) {

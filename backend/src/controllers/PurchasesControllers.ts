@@ -9,6 +9,13 @@ export default {
   async index(request: Request, response: Response) {
     const { id } = request.params;
 
+    // const purchases = await getRepository(Purchase)
+    //                           .createQueryBuilder('purchases')
+    //                           .select(['purchaseNumber', 'state', 'purchaseList', 'userId'])
+    //                           .from(Purchase, 'purchase')
+    //                           .where('purchase.userId = :id', {id})
+    //                           .getOne();
+
     const allPurchases = await getRepository(User)
                                   .createQueryBuilder('users')
                                   .leftJoinAndSelect('users.purchases', 'purchase')
