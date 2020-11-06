@@ -77,7 +77,7 @@ form.content-login-form .button-block {
   justify-content: space-between;
 }
 
-form.content-login-form .button-block button {
+form.content-login-form .button-block a {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -91,6 +91,6 @@ form.content-login-form .button-block button {
   cursor: pointer;
 }
 
-form.content-login-form .button-block button:hover {
+form.content-login-form .button-block a:hover {
   background: #79878F;
 }

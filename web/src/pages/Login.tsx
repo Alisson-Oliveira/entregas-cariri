@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import { FiLogIn, FiPlus } from 'react-icons/fi';
 
 import '../styles/pages/login.css';
@@ -19,16 +21,16 @@ function Login() {
             </div> 
             <div className="input-block">
               <label htmlFor="password">Password</label>
-              <input id="password" />
+              <input id="password" type="password" />
             </div>
           </div>
           <div className="button-block">
-            <button type="button"> 
+            <Link to=""> 
               <FiLogIn size={26} color="#FFFFFF" /> 
-            </button>
-            <button type="button">
+            </Link>
+            <Link to="/create/user">
               <FiPlus size={26} color="#FFFFFF" />
-            </button>
+            </Link>
           </div>
         </form>
       </div> 
