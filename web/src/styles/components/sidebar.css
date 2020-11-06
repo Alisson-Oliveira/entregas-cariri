@@ -1,0 +1,34 @@
+header.content-header {
+  background: linear-gradient(116.35deg, #FFF7CC 11.88%, #FFF099 87.72%);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  padding: 48px;
+  width: 100%;
+  height: 240px;
+}
+
+header.content-header a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  color: #0E3F5D;
+  text-decoration: none;
+}
+
+header.content-header .content-user {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+
+header.content-header .content-user span {
+  font-size: 24px;
+  line-height: 18px;
+  font-weight: 900;
+  margin-bottom: 10px;
+}
