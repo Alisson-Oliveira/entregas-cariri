@@ -9,7 +9,7 @@ import CreatePurchase from './pages/CreatePurchase';
 function Routes() {
   return (
     <BrowserRouter>
-      <Switch>
+      <Switch> 
         <Route exact path="/" component={Login} />
         <Route path="/panel" component={panelUser} />
         <Route path="/create/user" component={CreateUser} />
