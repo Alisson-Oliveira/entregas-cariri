@@ -7,7 +7,7 @@ import Purchase from '../components/Purchase';
 
 import '../styles/pages/panelUser.css';
 
-interface Purchase {
+interface PurchaseProps {
   id: number,
   number: string,
   state: string,
@@ -15,7 +15,7 @@ interface Purchase {
 }
 
 function PanelUser() {
-  const [purchases, setPurchases] = useState<Purchase[]>([]);
+  const [purchases, setPurchases] = useState<PurchaseProps[]>([]);
 
   return (
     <div id="page-panel-user">
@@ -37,14 +37,14 @@ function PanelUser() {
         <main>
           {
             purchases.length !== 0 ? (
-              purchases.map(purchase => {
+              purchases.map(purchase => (
                 <Purchase 
                   key={purchase.id}
                   purchaseNumber={purchase.number}
                   PurchaseState={purchase.state}
                   PurchaseList={purchase.list}
                 />  
-              })
+              ))
             ) : (
               <div className="purchases-without">
                 Você não possui nenhuma compra. :(

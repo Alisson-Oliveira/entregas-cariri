@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 
 import '../styles/pages/createPurchase.css';
@@ -22,9 +22,9 @@ function CreatePurchase() {
                 id="purchase-list" 
               />
             </div>
-            <button type="button">
+            <Link to='/landing/purchase/confirmed'>
               Confirmar
-            </button>
+            </Link>
           </fieldset>
         </form>
       </main>

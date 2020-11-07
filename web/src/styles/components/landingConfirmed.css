@@ -1,0 +1,79 @@
+#page-landing-confirmed {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(116.35deg, #88EEAB 11.88%, #2BC86A 87.72%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#page-landing-confirmed .content-landing {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1024px;
+  height: 100%;
+  max-height: 650px;
+  padding: 64px 0;
+}
+
+#page-landing-confirmed .content-landing .content-titles {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 450px;
+  height: 100%;
+}
+
+#page-landing-confirmed .content-landing .content-titles h1 {
+  font-size: 48px;
+  line-height: 42px;
+  font-weight: 700;
+}
+
+#page-landing-confirmed .content-landing .content-titles h2 {
+  font-size: 36px;
+  line-height: 36px;
+  font-weight: 700;
+  margin-top: 64px;
+}
+
+#page-landing-confirmed .content-landing .content-images {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 450px;
+  height: 100%;
+}
+
+#page-landing-confirmed .content-landing .content-images .content-images-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 300px;
+}
+
+#page-landing-confirmed .content-landing .content-images .content-images-block img {
+  height: 64px;
+}
+
+#page-landing-confirmed .content-landing .content-images .content-images-block a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 64px;
+  height: 64px;
+  background: #0E3F5D;
+  border: 1px solid #79878F;
+  border-radius: 12px;
+  transition: 0.2s;
+  outline: none;
+  cursor: pointer;
+}
+
+#page-landing-confirmed .content-landing .content-images .content-images-block a:hover {
+  background: #79878F;
+}

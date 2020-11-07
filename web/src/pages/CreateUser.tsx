@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 
 import '../styles/pages/createUser.css';
@@ -51,9 +51,9 @@ function CreateUser() {
                 type="password"
               />
             </div>
-            <button type="button">
+            <Link to='/landing/user/confirmed'>
               Confirmar
-            </button>
+            </Link>
           </fieldset>
         </form>
       </main>
