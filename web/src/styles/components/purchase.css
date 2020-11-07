@@ -1,0 +1,17 @@
+section {
+  width: 100%;
+  border: 1px solid #D3E2E5;
+  border-radius: 20px;
+  padding: 16px;
+  background: #F8F8F8;
+  margin-bottom: 20px;
+}
+
+section .purchase-block + .purchase-block {
+  margin-bottom: 20px;
+}
+
+section .purchase-block {
+  display: flex;
+  justify-content: space-between;
+}

@@ -1,13 +1,22 @@
 header.content-header {
   background: linear-gradient(116.35deg, #FFF7CC 11.88%, #FFF099 87.72%);
-
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-
   padding: 48px;
   width: 100%;
   height: 240px;
+}
+
+header.content-header button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  color: #0E3F5D;
+  text-decoration: none;
+  background: none;
+  border: 0;
 }
 
 header.content-header a {

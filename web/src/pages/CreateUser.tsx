@@ -7,7 +7,7 @@ import '../styles/pages/createUser.css';
 function CreateUser() {
   return (
     <div id="page-create-user"> 
-      <Sidebar />
+      <Sidebar active={false} />
 
       <main>
         <form className="create-user-form">

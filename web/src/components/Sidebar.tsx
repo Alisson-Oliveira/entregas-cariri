@@ -1,21 +1,32 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { FiArrowLeft, FiLogOut } from 'react-icons/fi';
-
+import logoSmailImg from '../images/logo-small.svg';
 import '../styles/components/sidebar.css';
 
-function Sidebar() {
-  const [active, setActive] = useState(false);
+interface SidebarProps {
+  active: boolean,
+  children?: string,
+}
+
+function Sidebar(props: SidebarProps) {
+  const { goBack } = useHistory();
 
   return (
     <header className="content-header">
-      <Link to="/">
-        <FiArrowLeft size={24} color="#0E3F5D" /> Voltar
-      </Link>
       {
-        active ? (
+        props.active ? (
+          <img src={logoSmailImg} alt="Entregas Cariri" />
+        ) : (
+          <button type="button" onClick={goBack}>
+            <FiArrowLeft size={24} color="#0E3F5D" /> Voltar
+          </button>
+        )
+      }
+      {
+        props.active ? (
           <main className="content-user">
-            <span>Alisson Oliveira</span>
+            <span>{props.children}</span>
             <Link to="/">
               Sair <FiLogOut size={24} color="#0E3F5D" />
             </Link>

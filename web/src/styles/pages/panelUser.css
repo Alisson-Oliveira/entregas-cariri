@@ -1,0 +1,82 @@
+#page-panel-user {
+  display: flex;
+  flex-direction: column;
+}
+
+#page-panel-user article {
+  flex: 1;
+  width: 700px;
+  margin: -80px auto 64px;
+  background: #FFFFFF;
+  border: 1px solid #D3E2E5;
+  border-radius: 20px;
+  padding: 32px 80px; 
+  overflow: hidden;
+}
+
+article header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 24px;
+}
+
+article header strong {
+  font-size: 24px;
+  line-height: 18px;
+  font-weight: 700;
+}
+
+article header .purchases-state {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+article main {
+  flex: 1;
+}
+
+article main .purchases-without {
+  width: 100%;
+  height: 250px;
+  font-size: 24px;
+  line-height: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+article footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+}
+
+article footer span {
+  font-size: 24px;
+  line-height: 18px;
+  font-weight: 700;
+}
+
+article footer a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 64px;
+  height: 64px;
+  background: #0E3F5D;
+  border: 1px solid #79878F;
+  border-radius: 12px;
+  transition: 0.2s;
+  outline: none;
+  cursor: pointer;
+}
+
+article footer a:hover {
+  background: #79878F;
+}

@@ -25,7 +25,7 @@ function Login() {
             </div>
           </div>
           <div className="button-block">
-            <Link to=""> 
+            <Link to="/panel"> 
               <FiLogIn size={26} color="#FFFFFF" /> 
             </Link>
             <Link to="/create/user">
