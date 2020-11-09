@@ -3,19 +3,19 @@ import { getRepository } from 'typeorm';
 import User from '../models/User';
 import * as Yup from 'yup';
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import authConfig from '../config/auth';
+// import jwt from 'jsonwebtoken';
+// import authConfig from '../config/auth';
 
 import UserView from '../views/UserViews';
 
-function generationTokin(params = {}) {
-  return jwt.sign(params, authConfig.auth, {
-    expiresIn: 86400,
-  });
-}
+// function generationTokin(params = {}) {
+//   return jwt.sign(params, authConfig.jwt.auth, {
+//     expiresIn: 86400,
+//   });
+// }
 
 export default {
- async show(request: Request, response: Response)  {
+  async show(request: Request, response: Response)  {
     const { email, password } = request.body;
 
     const usersRepository = getRepository(User);
@@ -28,7 +28,7 @@ export default {
     if (!await bcrypt.compare(password, user.password))
       return response.status(400).send({ error: 'Invalid password.' });
 
-    return response.status(201).json(UserView.render(user));
+    return response.json({ user: UserView.render(user) }); 
     // return response.json({ 
     //   user, 
     //   token: generationTokin({ id: user.id })
@@ -84,8 +84,8 @@ export default {
       const user = usersRepository.create(data);
   
       await usersRepository.save(user);
-
-      return response.status(201).json(UserView.render(user));
+      
+      return response.status(201).json({ user: UserView.render(user) });       
       // return response.status(201).json({ 
       //   user: UserView.render(user), 
       //   token: generationTokin({ id: user.id })

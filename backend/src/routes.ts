@@ -7,6 +7,7 @@ const routes = Router();
 
 routes.get('/users/:id', UsersControllers.index);
 routes.post('/register', UsersControllers.create);
+routes.post('/authenticate', UsersControllers.show);
 
 routes.get('/purchases/:id', PurchasesControllers.index);
 routes.get('/purchases/currentycompleted/:id', PurchasesControllers.show);
