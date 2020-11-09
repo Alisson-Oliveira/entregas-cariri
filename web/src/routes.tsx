@@ -8,7 +8,7 @@ import CreatePurchase from './pages/CreatePurchase';
 import Landing from './pages/Landing';
 
 function Routes() { 
-  return (
+return (
     <BrowserRouter basename="/">
       <Switch> 
         <Route exact path="/" component={Login} />

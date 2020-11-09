@@ -60,7 +60,7 @@ form.create-purchase-form fieldset .input-block textarea {
   overflow: hidden;
 }
 
-form.create-purchase-form fieldset a {
+form.create-purchase-form fieldset button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -77,6 +77,6 @@ form.create-purchase-form fieldset a {
   cursor: pointer;
 }
 
-form.create-purchase-form fieldset a:hover {
+form.create-purchase-form fieldset button:hover {
   background: #79878F;
 }

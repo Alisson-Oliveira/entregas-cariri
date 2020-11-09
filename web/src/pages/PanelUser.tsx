@@ -1,33 +1,62 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { FiArrowRight } from 'react-icons/fi';
 
 import Sidebar from '../components/Sidebar';
 import Purchase from '../components/Purchase';
 
 import '../styles/pages/panelUser.css';
+import api from '../services/api';
 
 interface PurchaseProps {
   id: number,
-  number: string,
+  purchaseNumber: string,
+  purchaseList: string,
   state: string,
-  list: string,
+}
+
+interface UserState {
+  id: number,
+  name: string,
+  address: string,
+  email: string,
 }
 
 function PanelUser() {
+  const [user, setUser] = useState<UserState>();
   const [purchases, setPurchases] = useState<PurchaseProps[]>([]);
+  const [currenty, setCurrenty] = useState(0);
+  const [completed, setCompleted] = useState(0);
+  const location = useLocation();
+
+  useEffect(() => {
+    const userData = location.state as UserState;
+    if (!userData) return ;
+
+    setUser(userData);
+
+    api.get(`/purchases/${userData.id}`).then(response => {
+      setPurchases(response.data);
+    })
+
+    api.get(`/purchases/currentycompleted/${userData.id}`).then(response => {
+      setCurrenty(response.data.currenty);
+      setCompleted(response.data.completed);
+    })
+
+  }, [location.state]);
 
   return (
     <div id="page-panel-user">
-      <Sidebar active={true}> Alisson Oliveira </Sidebar>
+      <Sidebar active={true} children={user?.name} />
       <article>
         <header>
           <strong>Lista de Pedidos</strong>
           {
             purchases.length !== 0 ? (
               <div className="purchases-state">
-                <span>Em andamento: 0</span>
-                <span>Entregues: 0</span>
+                <span>Em andamento: {currenty} </span>
+                <span>Entregues: {completed}</span>
               </div>
             ) : (
               <div></div>
@@ -40,9 +69,9 @@ function PanelUser() {
               purchases.map(purchase => (
                 <Purchase 
                   key={purchase.id}
-                  purchaseNumber={purchase.number}
+                  purchaseNumber={purchase.purchaseNumber}
                   PurchaseState={purchase.state}
-                  PurchaseList={purchase.list}
+                  PurchaseList={purchase.purchaseList}
                 />  
               ))
             ) : (
@@ -54,7 +83,11 @@ function PanelUser() {
         </main>
         <footer>
           <span>Faça uma compra agora mesmo :)</span>
-          <Link to="/create/purchase">
+          <Link to={{
+              pathname: '/create/purchase',
+              state: user
+            }}
+          >
             <FiArrowRight size={26} color="#FFFFFF" />
           </Link>
         </footer>

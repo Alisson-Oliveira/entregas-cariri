@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { FiArrowRight } from 'react-icons/fi';
 
 import SorrisoImg from '../images/sorriso.svg';
@@ -13,7 +13,24 @@ interface LandingConfirmedProps {
   subTitleTwo: string,
 }
 
+interface UserState {
+  id: number,
+  name: string,
+  address: string,
+  email: string,
+}
+
 function LandingConfirmed(props: LandingConfirmedProps) {
+  const [user, setUser] = useState<UserState>();
+  const location = useLocation();
+
+  useEffect(() => {
+    const userData = location.state as UserState;
+    if (!userData) return ;
+
+    setUser(userData);
+  }, [location.state]);
+
   return (
     <div id="page-landing-confirmed">
       <div className="content-landing">
@@ -26,7 +43,11 @@ function LandingConfirmed(props: LandingConfirmedProps) {
           <img src={SorrisoImg} alt="Sorriso" />
           <div className="content-images-block">
             <img src={LogoSmallImg} alt="Entregas Cariri" />
-            <Link to="/panel">
+            <Link to={{
+              pathname: '/panel',
+              search: `?u=${user?.id}`,
+              state: user
+            }}>
               <FiArrowRight size={26} color="#FFFFFF" />
             </Link>
           </div>

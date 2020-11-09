@@ -53,7 +53,7 @@ form.create-user-form fieldset .input-block input {
   outline: none;
 }
 
-form.create-user-form fieldset a {
+form.create-user-form fieldset button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -70,6 +70,6 @@ form.create-user-form fieldset a {
   cursor: pointer;
 }
  
-form.create-user-form fieldset a:hover {
+form.create-user-form fieldset button:hover {
   background: #79878F;
 }
