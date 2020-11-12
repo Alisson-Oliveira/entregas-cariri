@@ -21,7 +21,7 @@ function CreatePurchase() {
   const [purchaseList, setPurchaseList] = useState('');
   const history = useHistory();
   const location = useLocation();
-  
+
   useEffect(() => {
     const userData = location.state as UserState;
 
@@ -44,7 +44,7 @@ function CreatePurchase() {
 
     const data = {
       purchaseNumber,
-      state: 'Em andamento',
+      state: 'Lista de Espera',
       purchaseList,
       id: user?.id,
     }

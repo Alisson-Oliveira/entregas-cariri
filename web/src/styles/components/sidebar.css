@@ -8,6 +8,10 @@ header.content-header {
   height: 240px;
 }
 
+header.content-header img {
+  margin-top: -10px;
+}
+
 header.content-header button {
   display: flex;
   justify-content: center;

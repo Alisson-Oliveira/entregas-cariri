@@ -1,6 +1,7 @@
 import React, { FormEvent, useState,  } from 'react';
 import { useHistory } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
+import { login } from '../config/auth';
 
 import api from '../services/api';
 
@@ -34,18 +35,20 @@ function CreateUser() {
     try {
       const response = await api.post('/register', data);
 
+      login(response.data.token);
+
       history.push({
         pathname: '/landing/user/confirmed',
         search: '?u=ok',
         state: response.data.user
       });
     } catch (error) {
-      console.log(error);
+      return alert('Não foi possível efetuar o login.');
     }
   }
 
   return (
-    <div id="page-create-user"> 
+    <div id="page-create-user">
       <Sidebar active={false} />
 
       <main>
@@ -55,7 +58,7 @@ function CreateUser() {
             <div className="input-block">
               <label htmlFor="name">Nome</label>
               <input
-                id="name" 
+                id="name"
                 value={name}
                 onChange={event => setName(event.target.value)}
               />

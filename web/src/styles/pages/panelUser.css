@@ -36,6 +36,10 @@ article header .purchases-state {
   margin-top: 20px;
 }
 
+article header .purchases-state + .purchases-state {
+  margin-top: 0px;
+}
+
 article main {
   flex: 1;
 }

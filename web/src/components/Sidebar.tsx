@@ -3,6 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { FiArrowLeft, FiLogOut } from 'react-icons/fi';
 import logoSmailImg from '../images/logo-small.svg';
 import '../styles/components/sidebar.css';
+import { logout } from '../config/auth';
 
 interface SidebarProps {
   active: boolean,
@@ -11,7 +12,7 @@ interface SidebarProps {
 
 function Sidebar(props: SidebarProps) {
   const { goBack } = useHistory();
-
+  
   return (
     <header className="content-header">
       {
@@ -27,7 +28,7 @@ function Sidebar(props: SidebarProps) {
         props.active ? (
           <main className="content-user">
             <span>{props.children}</span>
-            <Link to="/">
+            <Link to="/" onClick={logout}>
               Sair <FiLogOut size={24} color="#0E3F5D" />
             </Link>
           </main>

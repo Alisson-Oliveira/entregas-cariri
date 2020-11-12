@@ -25,8 +25,10 @@ interface UserState {
 function PanelUser() {
   const [user, setUser] = useState<UserState>();
   const [purchases, setPurchases] = useState<PurchaseProps[]>([]);
+  const [waitList, setWaitList] = useState(0);
   const [currenty, setCurrenty] = useState(0);
   const [completed, setCompleted] = useState(0);
+  const [canceled, setCanceled] = useState(0);
   const location = useLocation();
 
   useEffect(() => {
@@ -36,15 +38,34 @@ function PanelUser() {
     setUser(userData);
 
     api.get(`/purchases/${userData.id}`).then(response => {
-      setPurchases(response.data);
+
+      const data = response.data;
+
+      setPurchases(data.reverse());
     })
 
-    api.get(`/purchases/currentycompleted/${userData.id}`).then(response => {
+    api.get(`/purchases/details/${userData.id}`).then(response => {
+      setWaitList(response.data.waitList);
       setCurrenty(response.data.currenty);
       setCompleted(response.data.completed);
+      setCanceled(response.data.canceled);
     })
 
-  }, [location.state]);
+  }, [location.state, purchases]);
+
+  function statePurchase(state: string) {
+    var stateResult = true;
+
+    stateResult = state !== 'Concluído';
+
+    if (!stateResult) return false;
+
+    stateResult = state !== 'Cancelado';
+    
+    if (!stateResult) return false;
+
+    return stateResult;
+  }
 
   return (
     <div id="page-panel-user">
@@ -54,10 +75,16 @@ function PanelUser() {
           <strong>Lista de Pedidos</strong>
           {
             purchases.length !== 0 ? (
-              <div className="purchases-state">
-                <span>Em andamento: {currenty} </span>
-                <span>Entregues: {completed}</span>
-              </div>
+              <>
+                <div className="purchases-state">
+                  <span>Lista de Espera: {waitList} </span>
+                  <span>Concluídos: {completed}</span>
+                </div>
+                <div className="purchases-state">
+                  <span>Em andamento: {currenty} </span>
+                  <span>Cancelados: {canceled}</span>
+                </div>
+              </>
             ) : (
               <div></div>
             )
@@ -69,9 +96,11 @@ function PanelUser() {
               purchases.map(purchase => (
                 <Purchase 
                   key={purchase.id}
+                  purchaseId={purchase.id}
                   purchaseNumber={purchase.purchaseNumber}
-                  PurchaseState={purchase.state}
-                  PurchaseList={purchase.purchaseList}
+                  purchaseState={purchase.state}
+                  purchaseList={purchase.purchaseList}
+                  purchaseCompleted={statePurchase(purchase.state)}
                 />  
               ))
             ) : (

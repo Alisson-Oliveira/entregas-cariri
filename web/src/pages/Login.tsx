@@ -5,6 +5,7 @@ import { FiLogIn, FiPlus } from 'react-icons/fi';
 import api from '../services/api';
 
 import '../styles/pages/login.css';
+import { login } from '../config/auth';
 
 function Login() {
   const history = useHistory();
@@ -21,6 +22,8 @@ function Login() {
 
     try {
       const response = await api.post('/authenticate', data);
+
+      login(response.data.token);
 
       history.push({
         pathname: '/panel',
