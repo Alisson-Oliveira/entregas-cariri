@@ -8,7 +8,7 @@ import Purchase from '../models/Purchase';
 import User from '../models/User';
 
 export default {
-  async show(request: Request, response: Response) {
+  async details(request: Request, response: Response) {
     try {
       const { id } = request.params;
 
@@ -23,12 +23,24 @@ export default {
         .where('purchases.userId = :id', { id })
         .andWhere('purchases.state = :state', { state: 'Concluído' })
         .getCount();
+
+      const waitList = await getRepository(Purchase)
+      .createQueryBuilder('purchases')
+      .where('purchases.userId = :id', { id })
+      .andWhere('purchases.state = :state', { state: 'Lista de Espera' })
+      .getCount();
+
+      const canceled = await getRepository(Purchase)
+      .createQueryBuilder('purchases')
+      .where('purchases.userId = :id', { id })
+      .andWhere('purchases.state = :state', { state: 'Cancelado' })
+      .getCount();
         
-      return response.status(201).json({currenty, completed});      
+      return response.status(201).json({currenty, completed, waitList, canceled});      
     } catch (error) {
       console.error('Error currenty and completed purchese - ' + error);
 
-      return response.status(401).json('Error currenty and completed purchese');       
+      return response.status(401).json('Error currenty and completed purchese');;       
     }
   }, 
 
@@ -43,9 +55,9 @@ export default {
   
       return response.status(201).json(PurchaseView.renderMany(purchases));      
     } catch (error) {
-      console.error('Error seaching purchese - ' + error);
+      console.error('Error seaching purcheses - ' + error);
 
-      return response.status(401).json('Error seaching purchese');       
+      return response.status(401).json('Error seaching purcheses');       
     }
   },
  
@@ -98,4 +110,70 @@ export default {
       return response.status(401).json('Error creating purchese');       
     }
   },
+
+  async show(request: Request, response: Response) {
+    try {
+      const { id } = request.params;
+
+      const purchaseRepository = getRepository(Purchase);
+
+      const purchase = await purchaseRepository.findOneOrFail(id);
+
+      return response.status(201).json(PurchaseView.render(purchase));    
+    } catch (error) {
+      console.error('Error seaching purchese - ' + error);
+
+      return response.status(401).json('Error seaching purchese');  
+    }
+  },
+
+  async update(request: Request, response: Response) {
+    try {
+      const { id } = request.params;
+
+      const purchaseRepository = getRepository(Purchase);
+
+      const purchase = await purchaseRepository.findOne({
+        where: { id }
+      });
+      
+      const data = { ...purchase, state: 'Concluído' };
+
+      purchaseRepository.save({
+        ...purchase, // existing fields
+        ...data // updated fields
+      });
+
+      return response.status(201).json({ message: 'Purchase updated' });
+    } catch (error) {
+      console.error('Error currenty and completed purchese - ' + error);
+
+      return response.status(401).json('Error currenty and completed purchese');
+    }
+  },
+
+  async cancel(request: Request, response: Response) {
+    try {
+      const { id } = request.params;
+
+      const purchaseRepository = getRepository(Purchase);
+
+      const purchase = await purchaseRepository.findOne({
+        where: { id }
+      });
+      
+      const data = { ...purchase, state: 'Cancelado' };
+
+      purchaseRepository.save({
+        ...purchase, // existing fields
+        ...data // updated fields
+      });
+
+      return response.status(201).json({ message: 'Purchase canceled' });
+    } catch (error) {
+      console.error('Error currenty and canceled purchese - ' + error);
+
+      return response.status(401).json('Error currenty and canceled purchese');
+    }
+  }
 }

@@ -1,10 +1,12 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 
-import authConfig from '../config/auth';
+import authConfig from '../../config/auth';
 
-interface DecodedId {
-  id: string
+interface TokenPayload {
+  iat: number;
+  exp: number;
+  sub: string;
 }
 
 export default {
@@ -16,21 +18,21 @@ export default {
 
     const parts = authHeader.split(' ');
 
-    console.log(parts);
-
     if(!(parts.length === 2)){
       return response.status(401).send({ error: 'Token error' });}
 
-    const [ schema, token ] = parts;
-
-    if (!/^Bearer$^/i.test(schema)){
-      console.log(schema, token);
-      return response.status(401).send({ error: 'Token malformato' })};
+    const [ , token ] = parts;
 
     try {
-      jwt.verify(token, authConfig.jwt.auth) as DecodedId;
+      const decoded = jwt.verify(token, authConfig.jwt.auth);
       
-      next();
+      const { sub } = decoded as TokenPayload;
+
+      request.user = {
+        id: sub,
+      };
+
+      return next();
     } catch (error) {
       return response.status(401).send({ error: 'Token invalid' });
     }
