@@ -15,12 +15,12 @@ function Login() {
   async function handleToPanel(event: FormEvent) {
     event.preventDefault();
 
-    const data = {
-      email,
-      password
-    }
-
     try {
+      const data = {
+        email,
+        password
+      }
+
       const response = await api.post('/authenticate', data);
 
       login(response.data.token);
@@ -31,7 +31,7 @@ function Login() {
         state: response.data.user
       });
     } catch (error) {
-      console.log(error); 
+      return alert('Não foi possível efetuar seu login, verifique seu email e sua senha.'); 
     }
   }
 

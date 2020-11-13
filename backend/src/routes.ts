@@ -2,12 +2,15 @@ import { Router } from 'express';
 
 import UsersControllers from './controllers/UsersControllers';
 import PurchasesControllers from './controllers/PurchasesControllers';
+import ValidateControllers from './controllers/ValidateControllers';
 
 const routes = Router();
 
 routes.get('/users/:id', UsersControllers.index);
 routes.post('/register', UsersControllers.create);
 routes.post('/authenticate', UsersControllers.show);
+
+routes.post('/check/email', ValidateControllers.execute);
 
 routes.get('/purchases/:id', PurchasesControllers.index);
 routes.get('/purchases/details/:id', PurchasesControllers.details);

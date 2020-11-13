@@ -21,9 +21,13 @@ function CreateUser() {
 
     if (!name || !email || !password || !address ) return alert('Por favor prencha todos os campos');
 
-    if (email !== confirmEmail) return;
+    if (email !== confirmEmail) return alert('Emails diferentes');;
 
-    if (password !== confirmPassword) return;
+    const validate = await api.post('/check/email', email);
+    
+    if (!validate.data.notExist) return alert('Esse email já está cadastrado em nosso banco de dados');
+
+    if (password !== confirmPassword) return alert('Senhas diferentes');
 
     const data = {
       name,
@@ -33,6 +37,7 @@ function CreateUser() {
     }
 
     try {
+      
       const response = await api.post('/register', data);
 
       login(response.data.token);
@@ -43,7 +48,7 @@ function CreateUser() {
         state: response.data.user
       });
     } catch (error) {
-      return alert('Não foi possível efetuar o login.');
+      return alert('Não foi possível efetuar cadastrar o novo usuário.');
     }
   }
 
