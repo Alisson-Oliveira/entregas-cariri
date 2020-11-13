@@ -1,0 +1,8 @@
+{
+  "routes": [
+    {
+      "src": "/src/pages/Offile.tsx",
+      "status": 404
+    }
+  ]
+}
