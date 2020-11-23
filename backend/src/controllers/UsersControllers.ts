@@ -23,12 +23,12 @@ export default {
     const user = await usersRepository.findOne({ email });
 
     if (!user) 
-      return response.status(400).send({ error: 'User not found.' });
+      return response.status(401).send({ error: 'User not found.' });
 
     if (!await bcrypt.compare(password, user.password))
-      return response.status(400).send({ error: 'Invalid password.' });
+      return response.status(401).send({ error: 'Invalid password.' });
 
-    return response.json({ 
+    return response.status(201).json({ 
       user: UserView.render(user), 
       token: generationTokin({ id: user.id })
     });  
