@@ -70,6 +70,10 @@ export default {
         id
       } = request.body;
   
+      if (purchaseNumber || state || purchaseList || id) {
+        return response.status(401).json('Error creating purchese'); 
+      }
+
       const userRepository = getRepository(User);
       const purchaseRepository = getRepository(Purchase);
   

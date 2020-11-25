@@ -60,6 +60,10 @@ export default {
   
       const password = await bcrypt.hash(request.body.password, 10);
   
+      if (name || email || address || password) {
+        return response.status(401).json({ message: 'Error creating user' }); 
+      }
+
       const usersRepository = getRepository(User);
   
       const data = {
