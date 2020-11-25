@@ -25,17 +25,17 @@ export default {
         .getCount();
 
       const waitList = await getRepository(Purchase)
-      .createQueryBuilder('purchases')
-      .where('purchases.userId = :id', { id })
-      .andWhere('purchases.state = :state', { state: 'Lista de Espera' })
-      .getCount();
+        .createQueryBuilder('purchases')
+        .where('purchases.userId = :id', { id })
+        .andWhere('purchases.state = :state', { state: 'Lista de Espera' })
+        .getCount();
 
       const canceled = await getRepository(Purchase)
-      .createQueryBuilder('purchases')
-      .where('purchases.userId = :id', { id })
-      .andWhere('purchases.state = :state', { state: 'Cancelado' })
-      .getCount();
-        
+        .createQueryBuilder('purchases')
+        .where('purchases.userId = :id', { id })
+        .andWhere('purchases.state = :state', { state: 'Cancelado' })
+        .getCount();
+          
       return response.status(201).json({currenty, completed, waitList, canceled});      
     } catch (error) {
       console.error('Error currenty and completed purchese - ' + error);
