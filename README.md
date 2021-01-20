@@ -15,6 +15,7 @@ Site para delivery de compras em supermercados.
 ### Backend
 - Express
 - Javascript
+- Typescript
 - Node JS
 - Sqlite 3
 - Typeorm
