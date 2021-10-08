@@ -43,7 +43,6 @@ export default {
       return response.status(401).json('Error currenty and completed purchese');;       
     }
   }, 
-
   async index(request: Request, response: Response) {
     try {
       const { id } = request.params;
@@ -60,7 +59,6 @@ export default {
       return response.status(401).json('Error seaching purcheses');       
     }
   },
- 
   async create(request: Request, response: Response) { 
     try {
       const { 
@@ -114,7 +112,6 @@ export default {
       return response.status(401).json('Error creating purchese');       
     }
   },
-
   async show(request: Request, response: Response) {
     try {
       const { id } = request.params;
@@ -130,7 +127,6 @@ export default {
       return response.status(401).json('Error seaching purchese');  
     }
   },
-
   async update(request: Request, response: Response) {
     try {
       const { id } = request.params;
@@ -155,7 +151,6 @@ export default {
       return response.status(401).json('Error currenty and completed purchese');
     }
   },
-
   async cancel(request: Request, response: Response) {
     try {
       const { id } = request.params;
