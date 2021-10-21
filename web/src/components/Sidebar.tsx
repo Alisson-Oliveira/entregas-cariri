@@ -38,4 +38,5 @@ function Sidebar(props: SidebarProps) {
   ); 
 }
 
-export default Sidebar;
+export default Sidebar
+  
