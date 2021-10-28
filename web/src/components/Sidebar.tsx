@@ -24,15 +24,16 @@ function Sidebar(props: SidebarProps) {
           </button>
         )
       }
+
       {
-        props.active ? (
+        props.active && (
           <main className="content-user">
             <span>{props.children}</span>
             <Link to="/" onClick={logout}>
               Sair <FiLogOut size={24} color="#0E3F5D" />
             </Link>
           </main>
-        ) : (<div> </div>)
+        ) 
       }
     </header> 
   ); 
