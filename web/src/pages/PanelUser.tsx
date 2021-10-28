@@ -30,27 +30,28 @@ function PanelUser() {
   const [completed, setCompleted] = useState(0);
   const [canceled, setCanceled] = useState(0);
   const location = useLocation();
-
-  useEffect(() => {
+  
+  async function getUserPurchasesDetails() {
     const userData = location.state as UserState;
     if (!userData) return ;
 
     setUser(userData);
 
-    api.get(`/purchases/${userData.id}`).then(response => {
+    let res = await api.get(`/purchases/${userData.id}`);
+    const data = res.data;
 
-      const data = response.data;
+    setPurchases(data.reverse());
+    
+    res = await api.get(`/purchases/details/${userData.id}`);
 
-      setPurchases(data.reverse());
-    })
+    setWaitList(res.data.waitList);
+    setCurrenty(res.data.currenty);
+    setCompleted(res.data.completed);
+    setCanceled(res.data.canceled);
+  }
 
-    api.get(`/purchases/details/${userData.id}`).then(response => {
-      setWaitList(response.data.waitList);
-      setCurrenty(response.data.currenty);
-      setCompleted(response.data.completed);
-      setCanceled(response.data.canceled);
-    })
-
+  useEffect(() => {
+    getUserPurchasesDetails()
   }, [location.state, purchases]);
 
   function statePurchase(state: string) {
