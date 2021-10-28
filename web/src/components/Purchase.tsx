@@ -112,18 +112,19 @@ function Purchase(props: PurchaseProps) {
         ) : (
           <>
             { 
-              completed ? (
+              completed && (
                 <div className ="purchase-completed">
                   Seu pedido foi entregue!
                 </div>
-              ) : (<div></div>)
+              ) 
             }
+            
             {
-              canceled ? (
+              canceled && (
                 <div className ="purchase-canceled">
                   Seu pedido foi cancelado!
                 </div>
-              ) : (<div></div>)
+              ) 
             }
           </>
         ) 
