@@ -16,18 +16,18 @@ function Purchase(props: PurchaseProps) {
   const [completed, setCompleted] = useState(false);
   const [canceled, setCanceled] = useState(false);
 
+  async function fetchPurchaseState() {
+    const res = await api.get(`/purchases/purchase/${props.purchaseId}`);
+    const { state }  = res.data;
+    
+    const result = state === 'Concluído
+        setCompleted(result)
+        setCanceled(result)
+  }
+
   useEffect(() => {
     try {
-      api.get(`/purchases/purchase/${props.purchaseId}`).then(response => {
-        const { state } = response.data;
-
-        const setState = (state: boolean) => {
-          setCompleted(state);
-          setCanceled(!state);
-        }
-
-        return state === 'Concluído' ? setState(true) : setState(false);
-      });
+      fetchPurchaseState()
     } catch (error) {
       return alert(`Não foi possível verificar o states da sua compra`);
     }
